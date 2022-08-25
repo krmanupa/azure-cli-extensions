@@ -125,6 +125,8 @@ class AutomationScenarioTest(ScenarioTest):
         checks=[self.check('length(@)', 0)])
 
         self.cmd('automation hrwg delete --resource-group {rg} --automation-account-name {account_name} --name {hybrid_runbook_worker_group_name} --yes')
+        
+        self.cmd('automation credential create --resource-group {rg} --automation-account-name {account_name} --name testcred --user-name username --password password')
 
         with mock.patch('azext_automation.manual.custom._uuid', side_effect=_uuid):
             job = self.cmd('automation runbook start --resource-group {rg} --automation-account-name {account_name} '
